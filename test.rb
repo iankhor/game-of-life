@@ -1,6 +1,8 @@
-size = 20
+# size = 20
+width = 80
+height = 20
 
-array = Array.new(size,"-") {Array.new(size,"-")}
+array = Array.new(height) {Array.new(width,"-")}
 
 # random seed
 array.each_with_index{ 
