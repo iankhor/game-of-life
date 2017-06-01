@@ -1,21 +1,28 @@
+require 'colorize'
+
 # size = 20
 width = 80
 height = 20
 
 array = Array.new(height) {Array.new(width,"-")}
 
-# random seed
-array.each_with_index{ 
-	|data_x, index_x| data_x.each_with_index{ 
-		|data_y,index_y| 
-		seed = rand(2)
-		seed == 1 ? data_y = "-" : data_y = "x"
-		# print index_x.to_s + "," + index_y.to_s + " : " + data_y.to_s
-		print data_y.to_s
+while 1 do 
+	system "clear"
+	# random seed
+	array.each_with_index{ 
+		|data_x, index_x| data_x.each_with_index{ 
+			|data_y,index_y| 
+			seed = rand(2)
+			seed == 1 ? data_y = "-" : data_y = "0".red
+			# print index_x.to_s + "," + index_y.to_s + " : " + data_y.to_s
+			print data_y.to_s
 
+		}
+			print "\n"
 	}
-		print "\n"
-}
+
+	sleep(0.5)
+end
 
 
 
