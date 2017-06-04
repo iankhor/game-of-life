@@ -11,4 +11,4 @@ use `colorize` gem
 
 1. SPIKE general plans 
 2. gradually convert to classes & module
-3. write test case
+3. write test case	
