@@ -38,9 +38,13 @@ def evaluateSurvival(array)
 	last_cell_row = current_row + 1
 	first_cell_column = current_column - 1
 	last_cell_column = current_column + 1
+	count = 0
 
-	puts "=" * 10
 	puts ""
+	puts "=" * 10
+	puts "evaluation grid"
+	puts ""
+
 
 	evaluation_grid_row = array[first_cell_row..last_cell_row]
 
@@ -50,16 +54,21 @@ def evaluateSurvival(array)
 
 		# isolate columns
 		evaluation_grid_column.each_with_index do |data_column, index_column|
+
+			evaluation_grid_row[index_row][index_column] == "0".red ? count+=1 : count+=0
+
 			print evaluation_grid_row[index_row][index_column].to_s	
 		end
 			puts ""
 
 	end
 
+	puts "Live cells : " + count.to_s
 	puts ""
 	puts "=" * 10
 
 	# check row, column including boudaries
+
 
 
 end
@@ -73,14 +82,17 @@ height = 10
 
 array = Array.new(height) {Array.new(width,"-")}
 
-# while 1 do 
+while 1 do 
 	system "clear"
+	puts "#" * 10
+	puts "life grid seed"
+	puts ""
 	# random seed
 	array.each_with_index{ 
 		|data_x, index_x| data_x.each_with_index{ 
 			|data_y,index_y| 
 			seed = rand(2)
-			seed == 1 ? array[index_x][index_y] = "-" : array[index_x][index_y] = "0"
+			seed == 1 ? array[index_x][index_y] = "-" : array[index_x][index_y] = "0".red
 
 			print array[index_x][index_y].to_s
 
@@ -88,10 +100,14 @@ array = Array.new(height) {Array.new(width,"-")}
 			print "\n"
 	}
 
+	puts ""
+	puts "#" * 10
+
+
 	evaluateSurvival(array)
 
 	sleep(0.5)
-# end
+end
 
 
 
