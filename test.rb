@@ -24,8 +24,8 @@ def evaluateSurvival(array)
 	# Any live cell with fewer than two live neighbours dies, 
 	# as if caused by underpopulation.
 
-	current_row = 5
-	current_column = 3
+	current_row = 5 # array index 4
+	current_column = 3 # array index 2
 
 	# check row, column without thinking about boundaries
 	# think of it as a 3x3 grid with the current_row and 
@@ -36,12 +36,28 @@ def evaluateSurvival(array)
 
 	first_cell_row = current_row - 1
 	last_cell_row = current_row + 1
-	# first_cell_column = current column - 1
-	# last_cell_column = current column + 1
+	first_cell_column = current_column - 1
+	last_cell_column = current_column + 1
 
-	puts array[0][0].to_s
+	puts "=" * 10
+	puts ""
 
+	evaluation_grid_row = array[first_cell_row..last_cell_row]
 
+	# isolate rows
+	evaluation_grid_row.each_with_index do |data_row, index_row|
+		evaluation_grid_column = data_row[first_cell_column..last_cell_column]
+
+		# isolate columns
+		evaluation_grid_column.each_with_index do |data_column, index_column|
+			print evaluation_grid_row[index_row][index_column].to_s	
+		end
+			puts ""
+
+	end
+
+	puts ""
+	puts "=" * 10
 
 	# check row, column including boudaries
 
@@ -64,7 +80,7 @@ array = Array.new(height) {Array.new(width,"-")}
 		|data_x, index_x| data_x.each_with_index{ 
 			|data_y,index_y| 
 			seed = rand(2)
-			seed == 1 ? array[index_x][index_y] = "-" : array[index_x][index_y] = "0".red
+			seed == 1 ? array[index_x][index_y] = "-" : array[index_x][index_y] = "0"
 
 			print array[index_x][index_y].to_s
 
