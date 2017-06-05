@@ -38,7 +38,9 @@ def evaluateSurvival(array)
 	last_cell_row = current_row + 1
 	first_cell_column = current_column - 1
 	last_cell_column = current_column + 1
-	count = 0
+	live_cell_count = 0
+	isLive = false.to_s.red
+	live_condition = 4
 
 	puts ""
 	puts "=" * 10
@@ -55,7 +57,7 @@ def evaluateSurvival(array)
 		# isolate columns
 		evaluation_grid_column.each_with_index do |data_column, index_column|
 
-			evaluation_grid_row[index_row][index_column] == "0".red ? count+=1 : count+=0
+			evaluation_grid_row[index_row][index_column] == "0".red ? live_cell_count+=1 : live_cell_count+=0
 
 			print evaluation_grid_row[index_row][index_column].to_s	
 		end
@@ -63,7 +65,18 @@ def evaluateSurvival(array)
 
 	end
 
-	puts "Live cells : " + count.to_s
+	# adjust live_cell_count if current cell is live
+	array[current_row - 1][current_column - 1] == "0".red ? live_cell_count-=1 : ""
+
+
+	# execute condition
+	live_cell_count < live_condition ? isLive = false.to_s.red : isLive = true.to_s.green
+
+
+	puts ""
+	puts "Neiboughring Live cells : " + live_cell_count.to_s
+	puts "Live condition : " + live_condition.to_s
+	puts "Cell to live ? " + isLive.to_s
 	puts ""
 	puts "=" * 10
 
