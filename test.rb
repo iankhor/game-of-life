@@ -43,7 +43,7 @@ def evaluateSurvival(array, current_row, current_column)
 	isLive_print 		= false.to_s.red
 	isLive 				= false
 
-	live_condition = 4
+	live_condition = 5
 
 	puts ""
 	puts "=" * 10
@@ -157,12 +157,12 @@ end
 
 # array = Array.new(height) {Array.new(width,"-")}
 
-system "clear"
-cells = seedGrid( 20 , 10 )
-printCellGrid(cells, "initial seed")
+while 1 do 
 
+	system "clear"
+	cells = seedGrid( 20 , 10 )
+	printCellGrid(cells, "initial seed")
 
-# while 1 do 
 
 	# evaluate cells 
 	cells = evaluateSurvival(cells,5,3)
@@ -176,8 +176,8 @@ printCellGrid(cells, "initial seed")
 
 	# evaluateSurvival(cells)
 
-	sleep(0.5)
-# end
+	sleep(1)
+end
 
 
 
