@@ -74,7 +74,7 @@ def evaluateSurvival(array)
 
 
 	puts ""
-	puts "Neiboughring Live cells : " + live_cell_count.to_s
+	puts "Neighbouring Live cells : " + live_cell_count.to_s
 	puts "Live condition : " + live_condition.to_s
 	puts "Cell to live ? " + isLive.to_s
 	puts ""
@@ -86,14 +86,37 @@ def evaluateSurvival(array)
 
 end
 
+def seedGrid(width, height)
+
+	array = Array.new(height) {Array.new(width,"-")}
+
+	# random seed
+	array.each_with_index{ 
+		|data_x, index_x| data_x.each_with_index{ 
+			|data_y,index_y| 
+			seed = rand(2)
+			seed == 1 ? array[index_x][index_y] = "-" : array[index_x][index_y] = "0".red
+
+			# print array[index_x][index_y].to_s
+
+		}
+			# print "\n"
+	}
+
+	return array
+
+end
+
 
 ##################################
 
 # size = 20
-width = 20
-height = 10
+# width = 20
+# height = 10
 
-array = Array.new(height) {Array.new(width,"-")}
+# array = Array.new(height) {Array.new(width,"-")}
+
+array = seedGrid( 20 , 10 )
 
 while 1 do 
 	system "clear"
@@ -104,8 +127,8 @@ while 1 do
 	array.each_with_index{ 
 		|data_x, index_x| data_x.each_with_index{ 
 			|data_y,index_y| 
-			seed = rand(2)
-			seed == 1 ? array[index_x][index_y] = "-" : array[index_x][index_y] = "0".red
+			# seed = rand(2)
+			# seed == 1 ? array[index_x][index_y] = "-" : array[index_x][index_y] = "0".red
 
 			print array[index_x][index_y].to_s
 
