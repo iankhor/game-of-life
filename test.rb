@@ -34,6 +34,7 @@ def evaluateSurvival(array, current_row, current_column)
 	# evaluate the count, if meet condition
 	# Execute condition
 
+	current_cell 		= array[current_row - 1][current_column - 1]
 	first_cell_row 		= ( current_row - 1) - 1
 	last_cell_row 		= ( current_row - 1) + 1
 	first_cell_column 	= ( current_column - 1) - 1
@@ -46,7 +47,7 @@ def evaluateSurvival(array, current_row, current_column)
 
 	puts ""
 	puts "=" * 10
-	puts "evaluation grid "
+	puts "Evaluated grid at coordinates" + "( " + current_row.to_s + ", " + current_column.to_s + " )"
 	puts ""
 
 
@@ -71,6 +72,8 @@ def evaluateSurvival(array, current_row, current_column)
 
 	end
 
+
+
 	# adjust live_cell_count if current cell is live
 	array[current_row - 1][current_column - 1] == "0".red ? live_cell_count-=1 : ""
 
@@ -85,7 +88,9 @@ def evaluateSurvival(array, current_row, current_column)
 		# do nothig
 	else
 		# kill cell
-		array[current_row - 1][current_column - 1] = "X".green
+		if current_cell == "0".red then
+			array[current_row - 1][current_column - 1] = "X".green
+		end
 	end
 
 	puts ""
