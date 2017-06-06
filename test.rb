@@ -9,7 +9,7 @@ def printStuff(x)
 
 end
 
-def evaluateSurvival(array)
+def evaluateSurvival(array, current_row, current_column)
 
 	# SPIKE : check column size
 	# array.each_with_index do |data_row, index_row| 
@@ -24,8 +24,8 @@ def evaluateSurvival(array)
 	# Any live cell with fewer than two live neighbours dies, 
 	# as if caused by underpopulation.
 
-	current_row = 5 # array index 4
-	current_column = 3 # array index 2
+	# current_row = 5 # array index 4
+	# current_column = 3 # array index 2
 
 	# check row, column without thinking about boundaries
 	# think of it as a 3x3 grid with the current_row and 
@@ -34,34 +34,40 @@ def evaluateSurvival(array)
 	# evaluate the count, if meet condition
 	# Execute condition
 
-	first_cell_row = current_row - 1
-	last_cell_row = current_row + 1
-	first_cell_column = current_column - 1
-	last_cell_column = current_column + 1
-	live_cell_count = 0
-	isLive = false.to_s.red
+	first_cell_row 		= ( current_row - 1) - 1
+	last_cell_row 		= ( current_row - 1) + 1
+	first_cell_column 	= ( current_column - 1) - 1
+	last_cell_column 	= ( current_column - 1) + 1
+	live_cell_count 	= 0
+	isLive_print 		= false.to_s.red
+	isLive 				= false
+
 	live_condition = 4
 
 	puts ""
 	puts "=" * 10
-	puts "evaluation grid"
+	puts "evaluation grid "
 	puts ""
 
 
 	evaluation_grid_row = array[first_cell_row..last_cell_row]
 
 	# isolate rows
-	evaluation_grid_row.each_with_index do |data_row, index_row|
-		evaluation_grid_column = data_row[first_cell_column..last_cell_column]
+	array.each_with_index do |data_row, index_row|
 
-		# isolate columns
-		evaluation_grid_column.each_with_index do |data_column, index_column|
+		if index_row <= last_cell_row and index_row >= first_cell_row then
 
-			evaluation_grid_row[index_row][index_column] == "0".red ? live_cell_count+=1 : live_cell_count+=0
+			data_row.each_with_index do |data_column, index_column|
+				if index_column <= last_cell_column and index_column >= first_cell_column then
+					data_column == "0".red ? live_cell_count+=1 : live_cell_count+=0
+					# puts "index_row : " + index_row.to_s + ", index_column : " + index_column.to_s 
+					print data_column.to_s
+				end
 
-			print evaluation_grid_row[index_row][index_column].to_s	
+			end
+				puts ""
+
 		end
-			puts ""
 
 	end
 
@@ -70,18 +76,29 @@ def evaluateSurvival(array)
 
 
 	# execute condition
-	live_cell_count < live_condition ? isLive = false.to_s.red : isLive = true.to_s.green
+	live_cell_count < live_condition ? isLive_print = false.to_s.red : isLive_print = true.to_s.green
 
+	live_cell_count < live_condition ? isLive = false : isLive = true
+
+	
+	if isLive then
+		# do nothig
+	else
+		# kill cell
+		array[current_row - 1][current_column - 1] = "X".green
+	end
 
 	puts ""
 	puts "Neighbouring Live cells : " + live_cell_count.to_s
-	puts "Live condition : " + live_condition.to_s
+	puts "Live condition : <" + live_condition.to_s
 	puts "Cell to live ? " + isLive.to_s
 	puts ""
 	puts "=" * 10
 
 	# check row, column including boudaries
 
+	# return array
+	return array
 
 
 end
@@ -107,6 +124,25 @@ def seedGrid(width, height)
 
 end
 
+def printCellGrid(cells, message)
+
+	puts "#" * 10
+	puts message
+	puts ""
+	cells.each_with_index{ 
+		|data_x, index_x| data_x.each_with_index{ 
+			|data_y,index_y| 
+
+			print cells[index_x][index_y].to_s
+
+		}
+			print "\n"
+	}
+	puts ""
+	puts "#" * 10
+
+end
+
 
 ##################################
 
@@ -116,34 +152,27 @@ end
 
 # array = Array.new(height) {Array.new(width,"-")}
 
-array = seedGrid( 20 , 10 )
+system "clear"
+cells = seedGrid( 20 , 10 )
+printCellGrid(cells, "initial seed")
 
-while 1 do 
-	system "clear"
-	puts "#" * 10
-	puts "life grid seed"
-	puts ""
-	# random seed
-	array.each_with_index{ 
-		|data_x, index_x| data_x.each_with_index{ 
-			|data_y,index_y| 
-			# seed = rand(2)
-			# seed == 1 ? array[index_x][index_y] = "-" : array[index_x][index_y] = "0".red
 
-			print array[index_x][index_y].to_s
+# while 1 do 
 
-		}
-			print "\n"
-	}
+	# evaluate cells 
+	cells = evaluateSurvival(cells,5,3)
+
+	# # print evaluated array 
+	printCellGrid(cells, "Evaluated cells")
 
 	puts ""
 	puts "#" * 10
 
 
-	evaluateSurvival(array)
+	# evaluateSurvival(cells)
 
 	sleep(0.5)
-end
+# end
 
 
 
